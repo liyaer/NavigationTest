@@ -7,23 +7,171 @@
 //
 
 #import "ViewController.h"
+#import "NextVC.h"
 
 @interface ViewController ()
 
+@property (nonatomic,strong) UIButton *next;
+
 @end
+
+
+
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+#pragma mark - 懒加载
+
+-(UIButton *)next
+{
+    if (!_next)
+    {
+        _next = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 50)];
+        [_next setTitle:@"next" forState:UIControlStateNormal];
+        [_next addTarget:self action:@selector(nextVC) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _next;
+}
+
+
+
+
+#pragma mark - viewDidLoad 初始化
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.view.backgroundColor = [UIColor brownColor];
+    [self.view addSubview:self.next];
+
+    
+    //修改title的颜色
+    [self setTitleColor];
+    
+    //设置item距离边缘的距离
+//    [self setSpace1];
+//    [self setSpace2];
+//    [self setSpace3];
+}
+
+//修改title的颜色
+-(void)setTitleColor
+{
+    self.title = @"测试tintColor";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];//通过富文本改变title颜色
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"left" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];//对title无效
+    self.navigationController.navigationBar.barTintColor = [UIColor greenColor];//改变背景色
+}
+
+/*
+ *   设置item距离边缘距离的三种方式，其中第三种是前两种的综合优化，最优
+ 
+ *   1，视觉效果法，影响用户体验             2，真正的符合要求
+ 
+ *   分析：一般常见的Item类型主要有：文字、图片、图文、多个Item。其中文字和图片可以使用系统提供的【initWithImage】和【initWithTitle】来快速构建，但是通过这两种方式创建的Item的缺点比较多：
+        --图片大小必须合适，过大的话会不正常。（高度不得超过44，宽度也不得超过某个数值）
+        --图片，文字无法保持本身的颜色，都会显示系统蓝。虽然可以通过    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+          来修改文字、图片颜色，但是图片仅限于那种线框图如"<"类型的
+        --点击范围不仅仅限于文字、图片的大小，会向右、向左扩大。（明明没点击到文字、或图片，也会响应点击）
+ 
+ *   为了解决上述问题，诞生了第三种。（使用 initWithCustomView:构造item，因为这样可以自定义更多操作）
+    1，方法一用来构造一个或者多个item，然后将多个item加到一层间接父试图上（就1个item的话就不用加间接父试图了，间接父试图用来调节多个item之间的距离）
+    2，方法2用来调节距左边框、右边框的距离
+    3，添加手势，规划点击范围
+ 
+ */
+-(void)setSpace1
+{
+    UIButton *settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //修改按钮向右偏移20 point
+    [settingButton setFrame:CGRectMake(20.0, 0.0, 44.0, 44.0)];
+    [settingButton addTarget:self action:@selector(rItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [settingButton setImage:[UIImage imageNamed:@"2"] forState:UIControlStateNormal];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
+    [view addSubview:settingButton];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+}
+-(void)setSpace2
+{
+    //leftItem
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"1"] style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedItem.width = -16;// 设置边框距离，个人习惯设为-16，可以根据需要调节
+    self.navigationItem.leftBarButtonItems = @[fixedItem, leftItem];
+    
+    //rightItem
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"1"] style:UIBarButtonItemStylePlain target:self action:@selector(rItemClick)];
+    self.navigationItem.rightBarButtonItems = @[fixedItem, rightItem];
+}
+-(void)setSpace3
+{
+    //1,使用initWithCustomView构造多样化的Item
+    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(40.0, 12.0, 20.0, 20.0)];
+    image.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"1@2x" ofType:@"png"]];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 44.0)];
+    view.backgroundColor = [UIColor orangeColor];
+    [view addSubview:image];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    label.font = [UIFont systemFontOfSize:15.0];
+    label.textColor = [UIColor greenColor];
+    label.text = @"哈哈";
+    [view addSubview:label];
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+    
+    //2，调整间距
+    UIBarButtonItem *fixItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixItem.width = -16;
+
+    self.navigationItem.rightBarButtonItems = @[fixItem,rightItem];
+    
+    //3，添加手势，实现点击
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rItemClick)];
+    [view addGestureRecognizer:tap];
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+#pragma mark - viewWillAppear
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
+
+
+
+
+#pragma mark - 点击事件集合
+
+-(void)nextVC
+{
+    NextVC *vc = [[NextVC  alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)backAction
+{
+    NSLog(@"tintColor 对title无效，对left、right Item 有效！");
+}
+
+-(void)rItemClick
+{
+    NSLog(@"这种方法的本质：父视图未设置clipToBounds = YES，子视图部分内容可以显示在父试图frame之外，从而达到视觉上的效果。\n缺点：超出父视图部分无法响应点击事件，所以如果修改的距离过大，会导致用户点击的有效区域变小");
+}
+
 
 
 @end
