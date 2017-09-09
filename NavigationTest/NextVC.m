@@ -45,20 +45,14 @@
     self.view.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:self.pop];
     
-    //方式一：完全隐藏导航栏，不可点击
-//    [self hiddenBar];
-}
-
-//方式一：完全隐藏导航栏，不可点击
--(void)hiddenBar
-{
-    self.navigationController.navigationBar.hidden = YES;
+    //方式一：完全隐藏导航栏，不可点击（对于translucent无要求）
+//    self.navigationController.navigationBar.hidden = YES;
 }
 
 
 
 
-//方式二：部分隐藏导航栏，可以点击（由于没有背景图，所以隐藏完显示window的黑色）
+//方式二：部分隐藏导航栏，可以点击（要求translucent = YES，才会看到透明效果；否则会是黑色）
 #pragma mark - viewWillAppear
 
 - (void)viewWillAppear:(BOOL)animated
@@ -95,6 +89,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 
 @end

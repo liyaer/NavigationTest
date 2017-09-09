@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "NextVC.h"
+#import "UINavigationController+SetNavBarAlpha.h"
 
 @interface ViewController ()
 
@@ -43,21 +44,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.view.backgroundColor = [UIColor brownColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:self.next];
-
     
     //修改title的颜色
-    [self setTitleColor];
+    [self setTitleColor1];
+//    [self setTitleColor2];
+    
     
     //设置item距离边缘的距离
 //    [self setSpace1];
 //    [self setSpace2];
 //    [self setSpace3];
+    
+    //prompt属性
+//    self.navigationItem.prompt = @"prompt增加30px,好像很少用";
+    
+    //设置导航栏的透明度（这是个对navigationBar的操作，全局生效，其他页面会受到影响）
+//    [self.navigationController setNavigationBarAlphaWithColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.1] andTintColor:[UIColor whiteColor]];
 }
 
 //修改title的颜色
--(void)setTitleColor
+-(void)setTitleColor1
 {
     self.title = @"测试tintColor";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];//通过富文本改变title颜色
@@ -65,9 +73,20 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"left" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];//对title无效
-    self.navigationController.navigationBar.barTintColor = [UIColor greenColor];//改变背景色
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];//证明对title无效,对Item有效
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1];//改变背景色（注意这里颜色和上面设置导航栏透明度中的颜色值一样，注意观察二者效果的不同）
+}
+-(void)setTitleColor2
+{
+    UIButton *settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [settingButton setFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
+    [settingButton addTarget:self action:@selector(rItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [settingButton setImage:[UIImage imageNamed:@"2"] forState:UIControlStateNormal];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 44.0)];
+    view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    [view addSubview:settingButton];
+    
+    self.navigationItem.titleView = view;//通过设置自定义的titleView修改title颜色
 }
 
 /*
