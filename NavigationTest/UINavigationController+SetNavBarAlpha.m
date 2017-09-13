@@ -7,29 +7,17 @@
 //
 
 #import "UINavigationController+SetNavBarAlpha.h"
+#import "UIImage+CreatImageByColor.h"
 
 @implementation UINavigationController (SetNavBarAlpha)
 
 -(void)setNavigationBarAlphaWithColor:(UIColor *)color andTintColor:(UIColor *)tintColor
 {
-    [self.navigationBar  setBackgroundImage:[self createImageWithColor:color] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationBar  setShadowImage:[self createImageWithColor:color]];//去除下方的边框黑线
+    [self.navigationBar  setBackgroundImage:[UIImage createImageWithColor:color] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar  setShadowImage:[UIImage createImageWithColor:color]];//去除下方的边框黑线
+    
     [self.navigationBar  setTintColor:tintColor];
     [self.navigationBar  setTranslucent:YES];//想设置导航栏透明效果，必须开启YES
-}
-
-//颜色填充返回图片
--(UIImage *) createImageWithColor: (UIColor *) color
-{
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return theImage;
 }
 
 @end

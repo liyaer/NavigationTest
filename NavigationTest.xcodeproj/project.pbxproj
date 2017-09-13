@@ -15,9 +15,10 @@
 		D20D1AAA1F19FB1300029E48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20D1AA81F19FB1300029E48 /* LaunchScreen.storyboard */; };
 		D20D1AB51F19FB1400029E48 /* NavigationTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D20D1AB41F19FB1400029E48 /* NavigationTestTests.m */; };
 		D20D1AC01F19FB1400029E48 /* NavigationTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D20D1ABF1F19FB1400029E48 /* NavigationTestUITests.m */; };
+		D20E118E1F68D0860072075B /* UIImage+CreatImageByColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D20E118D1F68D0860072075B /* UIImage+CreatImageByColor.m */; };
 		D276F7941F5D254800CDA7DD /* 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D276F7931F5D254800CDA7DD /* 2@2x.png */; };
 		D276F7961F5D2C1C00CDA7DD /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D276F7951F5D2C1C00CDA7DD /* 1@2x.png */; };
-		D2C115801F6391B3002DA4EE /* NextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C1157F1F6391B3002DA4EE /* NextVC.m */; };
+		D2C115801F6391B3002DA4EE /* SetNavBarAlphaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C1157F1F6391B3002DA4EE /* SetNavBarAlphaVC.m */; };
 		D2C115831F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C115821F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m */; };
 /* End PBXBuildFile section */
 
@@ -55,10 +56,12 @@
 		D20D1ABB1F19FB1400029E48 /* NavigationTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigationTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20D1ABF1F19FB1400029E48 /* NavigationTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationTestUITests.m; sourceTree = "<group>"; };
 		D20D1AC11F19FB1400029E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D20E118C1F68D0850072075B /* UIImage+CreatImageByColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CreatImageByColor.h"; sourceTree = "<group>"; };
+		D20E118D1F68D0860072075B /* UIImage+CreatImageByColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CreatImageByColor.m"; sourceTree = "<group>"; };
 		D276F7931F5D254800CDA7DD /* 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2@2x.png"; sourceTree = "<group>"; };
 		D276F7951F5D2C1C00CDA7DD /* 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1@2x.png"; sourceTree = "<group>"; };
-		D2C1157E1F6391B3002DA4EE /* NextVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextVC.h; sourceTree = "<group>"; };
-		D2C1157F1F6391B3002DA4EE /* NextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextVC.m; sourceTree = "<group>"; };
+		D2C1157E1F6391B3002DA4EE /* SetNavBarAlphaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNavBarAlphaVC.h; sourceTree = "<group>"; };
+		D2C1157F1F6391B3002DA4EE /* SetNavBarAlphaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetNavBarAlphaVC.m; sourceTree = "<group>"; };
 		D2C115811F63CEB8002DA4EE /* UINavigationController+SetNavBarAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SetNavBarAlpha.h"; sourceTree = "<group>"; };
 		D2C115821F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SetNavBarAlpha.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,10 +118,9 @@
 				D20D1A9E1F19FB1300029E48 /* AppDelegate.m */,
 				D20D1AA01F19FB1300029E48 /* ViewController.h */,
 				D20D1AA11F19FB1300029E48 /* ViewController.m */,
-				D2C1157E1F6391B3002DA4EE /* NextVC.h */,
-				D2C1157F1F6391B3002DA4EE /* NextVC.m */,
-				D2C115811F63CEB8002DA4EE /* UINavigationController+SetNavBarAlpha.h */,
-				D2C115821F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m */,
+				D2C1157E1F6391B3002DA4EE /* SetNavBarAlphaVC.h */,
+				D2C1157F1F6391B3002DA4EE /* SetNavBarAlphaVC.m */,
+				D20E118F1F68D08F0072075B /* 类别 */,
 				D20D1A9A1F19FB1300029E48 /* Supporting Files */,
 			);
 			path = NavigationTest;
@@ -154,6 +156,17 @@
 				D20D1AC11F19FB1400029E48 /* Info.plist */,
 			);
 			path = NavigationTestUITests;
+			sourceTree = "<group>";
+		};
+		D20E118F1F68D08F0072075B /* 类别 */ = {
+			isa = PBXGroup;
+			children = (
+				D20E118C1F68D0850072075B /* UIImage+CreatImageByColor.h */,
+				D20E118D1F68D0860072075B /* UIImage+CreatImageByColor.m */,
+				D2C115811F63CEB8002DA4EE /* UINavigationController+SetNavBarAlpha.h */,
+				D2C115821F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m */,
+			);
+			name = "类别";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,9 +306,10 @@
 			files = (
 				D20D1AA21F19FB1300029E48 /* ViewController.m in Sources */,
 				D20D1A9F1F19FB1300029E48 /* AppDelegate.m in Sources */,
+				D20E118E1F68D0860072075B /* UIImage+CreatImageByColor.m in Sources */,
 				D20D1A9C1F19FB1300029E48 /* main.m in Sources */,
 				D2C115831F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m in Sources */,
-				D2C115801F6391B3002DA4EE /* NextVC.m in Sources */,
+				D2C115801F6391B3002DA4EE /* SetNavBarAlphaVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

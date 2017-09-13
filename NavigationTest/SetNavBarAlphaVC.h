@@ -7,12 +7,13 @@
 //
 
 
+
 /*
- *   控制器：隐藏导航栏Demo（对于navigationBar的操作）
+ *   控制器：设置导航栏透明的三种方式（对于navigationBar的操作，全局生效，其他页面会受到影响）
  */
 
 #import <UIKit/UIKit.h>
 
-@interface NextVC : UIViewController
+@interface SetNavBarAlphaVC : UIViewController
 
 @end

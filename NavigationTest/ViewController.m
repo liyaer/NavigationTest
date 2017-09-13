@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "NextVC.h"
-#import "UINavigationController+SetNavBarAlpha.h"
+#import "SetNavBarAlphaVC.h"
 
 @interface ViewController ()
 
@@ -59,9 +58,6 @@
     
     //prompt属性
 //    self.navigationItem.prompt = @"prompt增加30px,好像很少用";
-    
-    //设置导航栏的透明度（这是个对navigationBar的操作，全局生效，其他页面会受到影响）
-//    [self.navigationController setNavigationBarAlphaWithColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.1] andTintColor:[UIColor whiteColor]];
 }
 
 //修改title的颜色
@@ -74,7 +70,7 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];//证明对title无效,对Item有效
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1];//改变背景色（注意这里颜色和上面设置导航栏透明度中的颜色值一样，注意观察二者效果的不同）
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1];//改变背景色（注意：这种写法设置alpha无法达到导航栏透明的效果）
 }
 -(void)setTitleColor2
 {
@@ -177,7 +173,7 @@
 
 -(void)nextVC
 {
-    NextVC *vc = [[NextVC  alloc] init];
+    SetNavBarAlphaVC *vc = [[SetNavBarAlphaVC  alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
