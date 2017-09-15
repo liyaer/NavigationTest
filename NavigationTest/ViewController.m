@@ -49,7 +49,7 @@
 {
     if (!_BarSets)
     {
-        _BarSets = @[@"完全隐藏Bar",@"使Bar变透明：方式一",@"使Bar变透明：方式二",@"使Bar变透明：方式三"];
+        _BarSets = @[@"完全隐藏Bar",@"使Bar变透明：方式一",@"使Bar变透明：方式二",@"使Bar变透明：方式三",@"导航栏颜色渐变"];
     }
     return _BarSets;
 }
@@ -67,7 +67,7 @@
 {
     if (!_tableView)
     {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:1];
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }
@@ -127,7 +127,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 50;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

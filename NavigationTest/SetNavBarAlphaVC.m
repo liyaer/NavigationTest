@@ -16,9 +16,11 @@
 
 #pragma mark - 类的扩展
 
-@interface SetNavBarAlphaVC ()
+@interface SetNavBarAlphaVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UIButton *pop;//为完全隐藏导航栏提供的返回按钮
+
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -40,6 +42,56 @@
         [_pop addTarget:self action:@selector(popVC) forControlEvents:UIControlEventTouchUpInside];
     }
     return _pop;
+}
+
+-(UITableView *)tableView
+{
+    if (!_tableView)
+    {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:0];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
+
+
+
+
+#pragma mark - tableView dateSource and delegate
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"du"];
+    if (!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:@"du"];
+    }
+    cell.textLabel.text = @"实现导航栏颜色渐变";
+    cell.imageView.image = [UIImage imageNamed:@"2"];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+#pragma mark - 跟随滑动实现导航栏颜色渐变
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    DLog(@"%f",scrollView.contentOffset.y);
+    
+    CGFloat minAlphaOffset = -64;
+    CGFloat maxAlphaOffset = 60;
+    CGFloat offset = scrollView.contentOffset.y;
+    CGFloat alpha = (offset - minAlphaOffset) / (maxAlphaOffset - minAlphaOffset);
+    self.navigationController.navigationBar.subviews.firstObject.alpha = alpha;
 }
 
 
@@ -81,7 +133,7 @@
             break;
         case 1:
         {
-            //方式一
+            //方式一（aView = self.navigationController.navigationBar.subviews.firstObject，这是简便写法，以后可以不用遍历，直接获取就行）
             for (UIView *aView in self.navigationController.navigationBar.subviews)
             {
                 if ([aView isKindOfClass:NSClassFromString(@"_UIBarBackground")] || [aView isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")])
@@ -104,7 +156,13 @@
             [self.navigationController setNavigationBarAlphaWithColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.2] andTintColor:[UIColor whiteColor]];
         }
             break;
-            
+        case 4:
+        {
+            [self.view addSubview:self.tableView];
+            //为实现导航栏渐变色提供一个颜色
+            self.navigationController.navigationBar.barTintColor = [UIColor brownColor];
+        }
+            break;
         default:
             break;
     }
@@ -151,7 +209,14 @@
             self.navigationController.navigationBar.shadowImage = [UIImage createImageWithColor:[UIColor blackColor]];//去除 navigationBar 底部的细线
         }
             break;
-            
+        case 4:
+        {
+            //恢复导航栏颜色和子控件的透明度（效果不是很友好）
+            self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+            self.navigationController.navigationBar.subviews.firstObject.alpha = 1.0;
+        }
+            break;
+
         default:
             break;
     }

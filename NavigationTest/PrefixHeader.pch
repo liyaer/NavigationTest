@@ -42,8 +42,6 @@
 #define DocPath NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]
 
 
-#import "DNavController.h"
-
 
 
 #endif /* PrefixHeader_pch */
