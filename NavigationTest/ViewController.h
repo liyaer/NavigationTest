@@ -8,7 +8,7 @@
 
 
 /*
- *   控制器：自定义导航栏Item并且修改间距、修改title颜色(都是对于navigationItem上的操作)
+ *   控制器：MainVC
  */
 
 #import <UIKit/UIKit.h>

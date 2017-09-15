@@ -16,6 +16,8 @@
 		D20D1AB51F19FB1400029E48 /* NavigationTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D20D1AB41F19FB1400029E48 /* NavigationTestTests.m */; };
 		D20D1AC01F19FB1400029E48 /* NavigationTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D20D1ABF1F19FB1400029E48 /* NavigationTestUITests.m */; };
 		D20E118E1F68D0860072075B /* UIImage+CreatImageByColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D20E118D1F68D0860072075B /* UIImage+CreatImageByColor.m */; };
+		D25BC4B71F6A28ED00B01532 /* SetNavItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D25BC4B61F6A28ED00B01532 /* SetNavItemVC.m */; };
+		D25BC5011F6BA02300B01532 /* OtherSets.m in Sources */ = {isa = PBXBuildFile; fileRef = D25BC5001F6BA02300B01532 /* OtherSets.m */; };
 		D276F7941F5D254800CDA7DD /* 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D276F7931F5D254800CDA7DD /* 2@2x.png */; };
 		D276F7961F5D2C1C00CDA7DD /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D276F7951F5D2C1C00CDA7DD /* 1@2x.png */; };
 		D2C115801F6391B3002DA4EE /* SetNavBarAlphaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C1157F1F6391B3002DA4EE /* SetNavBarAlphaVC.m */; };
@@ -58,6 +60,11 @@
 		D20D1AC11F19FB1400029E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D20E118C1F68D0850072075B /* UIImage+CreatImageByColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CreatImageByColor.h"; sourceTree = "<group>"; };
 		D20E118D1F68D0860072075B /* UIImage+CreatImageByColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CreatImageByColor.m"; sourceTree = "<group>"; };
+		D25BC4B51F6A28ED00B01532 /* SetNavItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNavItemVC.h; sourceTree = "<group>"; };
+		D25BC4B61F6A28ED00B01532 /* SetNavItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetNavItemVC.m; sourceTree = "<group>"; };
+		D25BC4FF1F6BA02300B01532 /* OtherSets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherSets.h; sourceTree = "<group>"; };
+		D25BC5001F6BA02300B01532 /* OtherSets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherSets.m; sourceTree = "<group>"; };
+		D25BC5021F6BAC3E00B01532 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		D276F7931F5D254800CDA7DD /* 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2@2x.png"; sourceTree = "<group>"; };
 		D276F7951F5D2C1C00CDA7DD /* 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1@2x.png"; sourceTree = "<group>"; };
 		D2C1157E1F6391B3002DA4EE /* SetNavBarAlphaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetNavBarAlphaVC.h; sourceTree = "<group>"; };
@@ -114,12 +121,17 @@
 		D20D1A991F19FB1300029E48 /* NavigationTest */ = {
 			isa = PBXGroup;
 			children = (
+				D25BC5021F6BAC3E00B01532 /* PrefixHeader.pch */,
 				D20D1A9D1F19FB1300029E48 /* AppDelegate.h */,
 				D20D1A9E1F19FB1300029E48 /* AppDelegate.m */,
 				D20D1AA01F19FB1300029E48 /* ViewController.h */,
 				D20D1AA11F19FB1300029E48 /* ViewController.m */,
+				D25BC4B51F6A28ED00B01532 /* SetNavItemVC.h */,
+				D25BC4B61F6A28ED00B01532 /* SetNavItemVC.m */,
 				D2C1157E1F6391B3002DA4EE /* SetNavBarAlphaVC.h */,
 				D2C1157F1F6391B3002DA4EE /* SetNavBarAlphaVC.m */,
+				D25BC4FF1F6BA02300B01532 /* OtherSets.h */,
+				D25BC5001F6BA02300B01532 /* OtherSets.m */,
 				D20E118F1F68D08F0072075B /* 类别 */,
 				D20D1A9A1F19FB1300029E48 /* Supporting Files */,
 			);
@@ -309,7 +321,9 @@
 				D20E118E1F68D0860072075B /* UIImage+CreatImageByColor.m in Sources */,
 				D20D1A9C1F19FB1300029E48 /* main.m in Sources */,
 				D2C115831F63CEB9002DA4EE /* UINavigationController+SetNavBarAlpha.m in Sources */,
+				D25BC4B71F6A28ED00B01532 /* SetNavItemVC.m in Sources */,
 				D2C115801F6391B3002DA4EE /* SetNavBarAlphaVC.m in Sources */,
+				D25BC5011F6BA02300B01532 /* OtherSets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +470,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/NavigationTest/PrefixHeader.pch";
 				INFOPLIST_FILE = NavigationTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.companyWeb--------.NavigationTest";
@@ -467,6 +483,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/NavigationTest/PrefixHeader.pch";
 				INFOPLIST_FILE = NavigationTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.companyWeb--------.NavigationTest";

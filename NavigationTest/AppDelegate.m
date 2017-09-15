@@ -20,7 +20,7 @@
     // Override point for customization after application launch.
     
     ViewController *vc = [[ViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    DNavController *nav = [[DNavController alloc] initWithRootViewController:vc];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];

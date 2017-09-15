@@ -16,4 +16,6 @@
 
 @interface SetNavBarAlphaVC : UIViewController
 
+@property (nonatomic,assign) NSInteger index;
+
 @end

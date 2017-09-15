@@ -13,6 +13,7 @@
 
 
 
+
 #pragma mark - 类的扩展
 
 @interface SetNavBarAlphaVC ()
@@ -52,11 +53,6 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor lightGrayColor];
-    
-    //完全隐藏导航栏（无法响应Item点击事件，对于translucent无要求）
-//    self.navigationController.navigationBar.hidden = YES;
-//    [self.view addSubview:self.pop];
-
 }
 
 
@@ -74,21 +70,44 @@
      *   2，由于是直接对于navigationBar的操作，所以在Push、Pop到其他的控制器,其他的控制器导航栏也是会变得透明,所以为了防止这类情况的发生,最好在【- (void)viewWillDisappear:(BOOL)animated】方法中,把导航栏的颜色还原过来
      */
     
-    //方式一
-//    for (UIView *aView in self.navigationController.navigationBar.subviews)
-//    {
-//        if ([aView isKindOfClass:NSClassFromString(@"_UIBarBackground")] || [aView isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")])
-//        {
-//            aView.hidden = YES;
-//        }
-//    }
-    
-    //方式二
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];//去除 navigationBar 底部的细线
-    
-    //方式三
-//    [self.navigationController setNavigationBarAlphaWithColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.2] andTintColor:[UIColor whiteColor]];
+    switch (self.index)
+    {
+        case 0:
+        {
+            //完全隐藏导航栏（无法响应Item点击事件，对于translucent无要求）
+            self.navigationController.navigationBar.hidden = YES;
+            [self.view addSubview:self.pop];
+        }
+            break;
+        case 1:
+        {
+            //方式一
+            for (UIView *aView in self.navigationController.navigationBar.subviews)
+            {
+                if ([aView isKindOfClass:NSClassFromString(@"_UIBarBackground")] || [aView isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")])
+                {
+                    aView.hidden = YES;
+                }
+            }
+        }
+            break;
+        case 2:
+        {
+            //方式二
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+            self.navigationController.navigationBar.shadowImage = [UIImage new];//去除 navigationBar 底部的细线
+        }
+            break;
+        case 3:
+        {
+            //方式三
+            [self.navigationController setNavigationBarAlphaWithColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:0.2] andTintColor:[UIColor whiteColor]];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
@@ -106,18 +125,36 @@
      *   方式2、3会看到短暂的黑色，目前不知道如何优化，而且下面阴影线高度变高了，想要恢复原状，可以参考这片文章http://www.jianshu.com/p/55dc07c71609
      */
     
-    //方式一
-//    for (UIView *aView in self.navigationController.navigationBar.subviews)
-//    {
-//        if ([aView isKindOfClass:NSClassFromString(@"_UIBarBackground")] || [aView isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")])
-//        {
-//            aView.hidden = NO;
-//        }
-//    }
-    
-    //方式二、方式三
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:[UIColor greenColor]] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage createImageWithColor:[UIColor blackColor]];//去除 navigationBar 底部的细线
+    switch (self.index)
+    {
+        case 0:
+        {
+            self.navigationController.navigationBar.hidden = NO;
+        }
+            break;
+        case 1:
+        {
+            //方式一
+            for (UIView *aView in self.navigationController.navigationBar.subviews)
+            {
+                if ([aView isKindOfClass:NSClassFromString(@"_UIBarBackground")] || [aView isKindOfClass:NSClassFromString(@"_UINavigationBarBackground")])
+                {
+                    aView.hidden = NO;
+                }
+            }
+        }
+            break;
+        case 2: case 3:
+        {
+            //方式二、方式三
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:[UIColor greenColor]] forBarMetrics:UIBarMetricsDefault];
+            self.navigationController.navigationBar.shadowImage = [UIImage createImageWithColor:[UIColor blackColor]];//去除 navigationBar 底部的细线
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 

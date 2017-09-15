@@ -1,0 +1,49 @@
+//
+//  PrefixHeader.pch
+//  NavigationTest
+//
+//  Created by 杜文亮 on 2017/9/15.
+//  Copyright © 2017年 Company-DWL（公司名）. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+
+
+
+
+#pragma mark - 简化、便利调用
+/*
+ *  Debug 开启日志输出    Release 关闭日志输出
+ */
+#ifdef DEBUG
+# define DLog(fmt, ...) NSLog((@"\n[Function: %s]\n" "[Line: %d] \n===================" fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+# define DLog(...);
+#endif
+/*
+ *  屏幕的宽、高
+ */
+#define DScreenHeight  [UIScreen mainScreen].bounds.size.height
+#define DScreenWight    [UIScreen mainScreen].bounds.size.width
+/*
+ *  r.g.b
+ */
+#define DRandomColor  [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1.0f];
+#define Dcolor(r,g,b,a)  [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+/*
+ *   docment 路径
+ */
+#define DocPath NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0]
+
+
+#import "DNavController.h"
+
+
+
+#endif /* PrefixHeader_pch */

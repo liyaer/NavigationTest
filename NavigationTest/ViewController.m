@@ -7,30 +7,165 @@
 //
 
 #import "ViewController.h"
+#import "SetNavItemVC.h"
 #import "SetNavBarAlphaVC.h"
+#import "OtherSets.h"
 
-@interface ViewController ()
 
-@property (nonatomic,strong) UIButton *next;
+
+#pragma mark - 类的扩展
+
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,strong) NSArray *ItemSets;
+
+@property (nonatomic,strong) NSArray *BarSets;
+
+@property (nonatomic,strong) NSArray *Others;
 
 @end
 
 
 
 
+#pragma mark - 类的实现
+
 @implementation ViewController
 
 #pragma mark - 懒加载
 
--(UIButton *)next
+-(NSArray *)ItemSets
 {
-    if (!_next)
+    if (!_ItemSets)
     {
-        _next = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 50)];
-        [_next setTitle:@"next" forState:UIControlStateNormal];
-        [_next addTarget:self action:@selector(nextVC) forControlEvents:UIControlEventTouchUpInside];
+        _ItemSets = @[@"修改NavItem中的title的颜色：系统默认",@"修改NavItem中的title的颜色：自定义",@"修改R、L-Item距离边缘的距离：方式一",@"修改R、L-Item距离边缘的距离：方式二",@"修改R、L-Item距离边缘的距离：方式三",@"设置prompt增加30px,好像很少用"];
     }
-    return _next;
+    return _ItemSets;
+}
+
+-(NSArray *)BarSets
+{
+    if (!_BarSets)
+    {
+        _BarSets = @[@"完全隐藏Bar",@"使Bar变透明：方式一",@"使Bar变透明：方式二",@"使Bar变透明：方式三"];
+    }
+    return _BarSets;
+}
+
+-(NSArray *)Others
+{
+    if (!_Others)
+    {
+        _Others = @[@"设置全屏滑动返回"];
+    }
+    return _Others;
+}
+
+-(UITableView *)tableView
+{
+    if (!_tableView)
+    {
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
+
+
+
+
+#pragma mark - tableView dateSource and delegate
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch (section)
+    {
+        case 0: return self.ItemSets.count; break;
+        case 1: return self.BarSets.count; break;
+        case 2: return self.Others.count; break;
+        default: return 0; break;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"du"];
+    if (!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:@"du"];
+        cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+    }
+    switch (indexPath.section)
+    {
+        case 0: cell.textLabel.text = self.ItemSets[indexPath.row]; break;
+        case 1: cell.textLabel.text = self.BarSets[indexPath.row]; break;
+        case 2: cell.textLabel.text = self.Others[indexPath.row]; break;
+        default:break;
+    }
+    
+    return cell;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section)
+    {
+        case 0: return @"对Navigation-Item的相关设置"; break;
+        case 1: return @"对Navigation-Bar的相关设置"; break;
+        case 2: return @"Others"; break;
+        default: return nil; break;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.section)
+    {
+        case 0:
+        {
+            SetNavItemVC *vc = [[SetNavItemVC alloc] init];
+            vc.index = indexPath.row;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            SetNavBarAlphaVC *vc = [[SetNavBarAlphaVC alloc] init];
+            vc.index = indexPath.row;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            OtherSets *vc = [[OtherSets alloc] init];
+            vc.index = indexPath.row;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
@@ -43,150 +178,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.title = @"主页";
     self.view.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:self.next];
-    
-    //修改title的颜色
-    [self setTitleColor1];
-//    [self setTitleColor2];
-    
-    
-    //设置item距离边缘的距离
-//    [self setSpace1];
-//    [self setSpace2];
-//    [self setSpace3];
-    
-    //prompt属性
-//    self.navigationItem.prompt = @"prompt增加30px,好像很少用";
+    [self.view addSubview:self.tableView];
 }
-
-//修改title的颜色
--(void)setTitleColor1
-{
-    self.title = @"测试tintColor";
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}];//通过富文本改变title颜色
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"left" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];//证明对title无效,对Item有效
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:1 blue:0 alpha:0.1];//改变背景色（注意：这种写法设置alpha无法达到导航栏透明的效果）
-}
--(void)setTitleColor2
-{
-    UIButton *settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [settingButton setFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
-    [settingButton addTarget:self action:@selector(rItemClick) forControlEvents:UIControlEventTouchUpInside];
-    [settingButton setImage:[UIImage imageNamed:@"2"] forState:UIControlStateNormal];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 44.0)];
-    view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    [view addSubview:settingButton];
-    
-    self.navigationItem.titleView = view;//通过设置自定义的titleView修改title颜色
-}
-
-/*
- *   设置item距离边缘距离的三种方式，其中第三种是前两种的综合优化，最优
- 
- *   1，视觉效果法，影响用户体验             2，真正的符合要求
- 
- *   分析：一般常见的Item类型主要有：文字、图片、图文、多个Item。其中文字和图片可以使用系统提供的【initWithImage】和【initWithTitle】来快速构建，但是通过这两种方式创建的Item的缺点比较多：
-        --图片大小必须合适，过大的话会不正常。（高度不得超过44，宽度也不得超过某个数值）
-        --图片，文字无法保持本身的颜色，都会显示系统蓝。虽然可以通过    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-          来修改文字、图片颜色，但是图片仅限于那种线框图如"<"类型的
-        --点击范围不仅仅限于文字、图片的大小，会向右、向左扩大。（明明没点击到文字、或图片，也会响应点击）
- 
- *   为了解决上述问题，诞生了第三种。（使用 initWithCustomView:构造item，因为这样可以自定义更多操作）
-    1，方法一用来构造一个或者多个item，然后将多个item加到一层间接父试图上（就1个item的话就不用加间接父试图了，间接父试图用来调节多个item之间的距离）
-    2，方法2用来调节距左边框、右边框的距离
-    3，添加手势，规划点击范围
- 
- */
--(void)setSpace1
-{
-    UIButton *settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //修改按钮向右偏移20 point
-    [settingButton setFrame:CGRectMake(20.0, 0.0, 44.0, 44.0)];
-    [settingButton addTarget:self action:@selector(rItemClick) forControlEvents:UIControlEventTouchUpInside];
-    [settingButton setImage:[UIImage imageNamed:@"2"] forState:UIControlStateNormal];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
-    [view addSubview:settingButton];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
-}
--(void)setSpace2
-{
-    //leftItem
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"1"] style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
-    UIBarButtonItem *fixedItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedItem.width = -16;// 设置边框距离，个人习惯设为-16，可以根据需要调节
-    self.navigationItem.leftBarButtonItems = @[fixedItem, leftItem];
-    
-    //rightItem
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"1"] style:UIBarButtonItemStylePlain target:self action:@selector(rItemClick)];
-    self.navigationItem.rightBarButtonItems = @[fixedItem, rightItem];
-}
--(void)setSpace3
-{
-    //1,使用initWithCustomView构造多样化的Item
-    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(40.0, 12.0, 20.0, 20.0)];
-    image.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"1@2x" ofType:@"png"]];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 44.0)];
-    view.backgroundColor = [UIColor orangeColor];
-    [view addSubview:image];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    label.font = [UIFont systemFontOfSize:15.0];
-    label.textColor = [UIColor greenColor];
-    label.text = @"哈哈";
-    [view addSubview:label];
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:view];
-    
-    //2，调整间距
-    UIBarButtonItem *fixItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixItem.width = -16;
-
-    self.navigationItem.rightBarButtonItems = @[fixItem,rightItem];
-    
-    //3，添加手势，实现点击
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rItemClick)];
-    [view addGestureRecognizer:tap];
-}
-
-
-
-
-#pragma mark - viewWillAppear
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBar.hidden = NO;
-}
-
-
-
-
-#pragma mark - 点击事件集合
-
--(void)nextVC
-{
-    SetNavBarAlphaVC *vc = [[SetNavBarAlphaVC  alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
--(void)backAction
-{
-    NSLog(@"tintColor 对title无效，对left、right Item 有效！");
-}
-
--(void)rItemClick
-{
-    NSLog(@"这种方法的本质：父视图未设置clipToBounds = YES，子视图部分内容可以显示在父试图frame之外，从而达到视觉上的效果。\n缺点：超出父视图部分无法响应点击事件，所以如果修改的距离过大，会导致用户点击的有效区域变小");
-}
-
 
 
 @end
